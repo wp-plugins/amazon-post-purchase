@@ -14,15 +14,17 @@ require_once("aws_signed_request.php"); //major workhorse for plugin
 class AmazonPostPurchase extends WP_Widget {
 
     // global vars
-    var $public_key = '07HQNKSPECJ80ZWQW5G2';
-    var $private_key = '9++ZOtMc0mFTm+LguipUzs8frz1pR4YWJsxNweXe';
-    var $affiliate = 'pifaliterajourna';  // you should set your own affiliate code, or we'll get credit for your purchases
+    var $public_key = 'AKIAJUTYNEJVYJQYBQBQ';
+    var $private_key = 'Y4VMdiLPD5XEkrDTIM53ktFptmLuhEtik5JSqvqm';
+    var $affiliate = 'pifmag-amazon-post-purchase-20';  // you should set your own affiliate code, or we'll get credit for your purchases
     var $asin_tag = 'ASIN'; // default custom field 'name'
-    
+    var $title_spec = '#_AUTHORNAME_#';
+    var $title = 'More by %s';
+    var $admin_width = 250;
     /** constructor */
 	function AmazonPostPurchase() {
 		// widget contructor
-        parent::WP_Widget(false, $name = 'AmazonPostPurchase');	
+        parent::WP_Widget(false, $name = 'AmazonPostPurchase', $widget_options=array(),$control_options = array('width'=>$this->admin_width));	
 	}
 
     /** @see WP_Widget::widget */
@@ -39,7 +41,7 @@ class AmazonPostPurchase extends WP_Widget {
         // get the remainder of the vars
         $title = apply_filters('widget_title', $instance['title']);
         $affiliate = apply_filters('widget_affiliate', $instance['affiliate']);
-        $widget_content = $this->getSingleAmazonProduct($asin,$affiliate);
+        $widget_content = $this->getSingleAmazonProduct($asin,$affiliate,$title);
         
     // start the output
         echo $before_widget; 
@@ -58,6 +60,10 @@ class AmazonPostPurchase extends WP_Widget {
 	    if (!$new_instance['asin_tag']) {
 	        $new_instance['asin_tag'] = $this->asin_tag;
         }
+	    if (!$new_instance['title']) {
+	        $new_instance['title'] = sprintf($this->title,$this->title_spec);
+        }
+      
 	    return $new_instance;
 	}
 
@@ -68,29 +74,39 @@ class AmazonPostPurchase extends WP_Widget {
         $affiliate = esc_attr($instance['affiliate']);
         $asin_tag = esc_attr($instance['asin_tag']);
 ?>
-    <h3>The Amazon-Post-Purchase widget will <i>only</i> display on post pages.</h3>
-    <p>To enable it's display for a Post, ensure that you:
-    <ol><li>set a custom field in your post with the same name indicated below, and</li>
-        <li>set the custom field value to the product's 10-digit ASIN code as provided by Amazon</li></ol></p>
+<style type="text/css">
+  LABEL.amazon-post-purchase {
+    font-weight: bolder;
+    padding-top: 4px;
+  }
+  SMALL.amazon-post-purchase {
+    text-align:center;
+    font-weight:lighter;
+    margin: 0px !important;
+    
+  }
+  
+</style>
         <p>
-          <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title:'); ?>
-          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label>
+          <label class="amazon-post-purchase" for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title:'); ?></label>
+          <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
         </p>
         <p>
-          <label for="<?php echo $this->get_field_id('affiliate'); ?>"><?php _e('Amazon Affiliate ID:'); ?>
-          <input class="widefat" id="<?php echo $this->get_field_id('affiliate'); ?>" name="<?php echo $this->get_field_name('affiliate'); ?>" type="text" value="<?php echo $affiliate; ?>" /></label>
-          <small>* If not set, will default to <i>our</i> Affiliate ID</small>
+          <label class="amazon-post-purchase" for="<?php echo $this->get_field_id('affiliate'); ?>"><?php _e('Amazon Affiliate ID:'); ?></label>
+          <input class="widefat" id="<?php echo $this->get_field_id('affiliate'); ?>" name="<?php echo $this->get_field_name('affiliate'); ?>" type="text" value="<?php echo $affiliate; ?>" /><br/>
+          <SMALL class="amazon-post-purchase">* If not set, will default to <i>our</i> Affiliate ID</SMALL>
         </p>
         <p>
-          <label for="<?php echo $this->get_field_id('asin_tag'); ?>"><?php _e('Custom Field Name:'); ?>
-          <input class="widefat" id="<?php echo $this->get_field_id('asin_tag'); ?>" name="<?php echo $this->get_field_name('asin_tag'); ?>" type="text" value="<?php echo $asin_tag; ?>" /></label>
+          <label class="amazon-post-purchase" for="<?php echo $this->get_field_id('asin_tag'); ?>"><?php _e('Custom Field Name:'); ?></label>
+          <input class="widefat" id="<?php echo $this->get_field_id('asin_tag'); ?>" name="<?php echo $this->get_field_name('asin_tag'); ?>" type="text" value="<?php echo $asin_tag; ?>" /><br/>
+          <SMALL class="amazon-post-purchase">* Same as post's Custom Field Name</SMALL>
         </p>
 <?php           
           
 	}
 	
 	//Single Product API Call - Returns One Product Data
-	function getSingleAmazonProduct($asin='',$aws_partner_id, $extratext=''){
+	function getSingleAmazonProduct($asin='',$aws_partner_id, &$title){
 		$target=' target="_new" ';
 		$a_err_msg='Product Unavailable.';
 		$a_hidden_msg='Visit Amazon for Price.';
@@ -182,6 +198,25 @@ EOF;
 				    $lowest_used_price = "<tr><td>Used From:</td><td>{$result["LowestUsedPrice"]} <span class='instock'>In Stock</span></td></tr>";
 				}
 			}
+      // test for special key in the title
+      $spec = $this->title_spec;
+      if (preg_match("/$this->title_spec/", $title)) {
+        if (isset($result['Author']) && FALSE != $result['Author']) {
+          $title = preg_replace("/$this->title_spec/",$result['Author'],$title);
+        }
+        elseif (isset($result['Director']) && FALSE != $result['Director']) {
+          $title = preg_replace("/$this->title_spec/",$result['Director'],$title);
+        }
+        elseif (isset($result['Publisher']) && FALSE != $result['Publisher']) {
+          $title = preg_replace("/$this->title_spec/",$result['Publisher'],$title);
+        }
+        elseif (isset($result['ProductGroup']) && FALSE != $result['ProductGroup']) {
+          $title = preg_replace("/$this->title_spec/",$result['ProductGroup'],$title);
+        }
+        else {  # if we can't format it properly, don't push special chars to the screen
+          $title = '';
+        }
+      }
 
             $plugin_dir = get_bloginfo('url') . '/' . PLUGINDIR . '/amazon-post-purchase';
 // the whole kit-n-kaboodle
@@ -250,13 +285,6 @@ EOF;
 	    $base_url .= '.jpg';
 	    return $base_url;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

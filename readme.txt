@@ -1,15 +1,16 @@
 === Amazon Post Purchase ===
 Contributors: Richard Luck
-Donate link: http://pifmagazine.com/donate
-Tags: Amazon, Affilate, Product, Post, Page, Quick Post, Amazon Associate, Monetize, ASIN, Amazon.com, Shortcode
+Donate link: http://pifmagazine.com/
+Tags: Amazon, Affiliate, ASIN, Amazon Associate, Monetize, Amazon.com
 Requires at least: 2.5
 Tested up to: 2.8.4
-Stable tag: 1.0
+Stable tag: 1.0.1
 
-Quickly add Amazon Products related to a to post/page in a side-bar widget by using just adding Amazon ASIN (ISBN-10) as post meta data. 
+Quickly add Amazon Products related to a to post/page in a side-bar widget by simply setting a Custom Field that includes the Amazon ASIN (ISBN-10). 
 
 == Description ==
-Amazon Post Purchase Plugin is based upon the great "Amazon Product In a Post Plugin" developed by [Don Fischer](http://fischercreativemedia.com/), but has been heavily modified for use as a side-bar widget.
+Amazon Post Purchase Plugin is based upon the "Amazon Product In a Post Plugin" developed by [Don Fischer](http://fischercreativemedia.com/).
+This widget, however, is intended for use as a side-bar widget in themes that support dynamic side-bars.
 
 The Plugin is useful for quickly displaying an appropriate Amazon Product in the side-bar for an individual post.  The plugin only displays for posts where the Amazon product ASIN (also known as the ISBN-10) has been set in a post's custom field.
 
@@ -27,25 +28,35 @@ To use the plugin, we recommend that you first get an Amazon Affiliate Account. 
 
 *PLEASE NOTE:* If you DO NOT add your own custom Associate ID, you WILL NOT get credit for any purchases made from your product posts.  By default, this plugin uses our Affiliate Account ID -- so until you input your Affiliate Account ID, all referral $$ will go to us.  (If you're wishing to make a donation - there are easier ways to do it :) You have been warned!
 
-
 == Installation ==
-After you install the plugin, you need to configure the Widget.   First, drag the "AmazonPostPurchase" widget to the appropriate side-bar container.  Where prompted, set the "Title" to be used for the widget, your "Amazon Affiliate ID", and the "Custom Field Name" you will use in your posts.
+1. Upload the *amazon-post-purchase* folder (inside the zip file) to your */wp-content/plugins/* directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
-No additional adjustments are needed unless you want to configure your own CSS styles. Styles are further explained below.
+After you have installed the plugin and loaded the widget into your side-bar, you will need to configure it.   
+
+Drag the "AmazonPostPurchase" widget to the appropriate side-bar container.  Where prompted, set the following fields:
+
+* "Title" - this will be the title displayed above the widget in the side-bar.  You can make this simple text, like "You Might Also Like", or the title can dynamically include the product's author, director, publisher or manufacturer by using the keyword *#_AUTHORNAME_#*, like this: "More by #_AUTHORNAME_#".
+
+* "Amazon Affiliate ID" - this should be _your_ Affiliate ID.  If you do not set this field, all referral $$ from Amazon will go to us.
+
+* "Custom Field Name" - this is the 'name' you will use when you create a custom field in your post.  By default this value is set to 'ASIN'.
+
+No additional adjustments are needed unless you want to configure your own CSS styles. 
 
 *WARNING: If you do not add your Amazon Affiliate ID, you will NOT get credit for purchases made using this Plugin.*
 
-**Adding products is a simple process.**
+== Usage ==
 
-To Add a product to an existing post:
+Once installed, adding a product to your post is a simple process:
+
 *  Go into the full edit mode for the post (Post/Edit then select the post).
-*  Under the Custom Fields, click on the link 'Enter New' (after you've created the first custom field, you will be able to select it from the drop-down list).
+*  Under the Custom Fields, click on the link 'Enter New' (after you've done this the first time, you will simply select the value from the drop-down list).
 *  Input the value you set in the widget "Custom Field Name" in the "Name" field.  (we recommend the word "ASIN").
 *  Input the ASIN for the product you want displayed in the "Value" field.
 *  Save or Publish the post.
 
 **Yes -- it's that easy!**
-
 
 == Frequently Asked Questions ==
 
@@ -62,5 +73,10 @@ Yes.  Wordpress will allow you to do that.  But each instance of the widget will
 3. Custom Field in the Post Edit screen.  This is where you set the ASIN for the product you want to display.
 
 == Changelog ==
+= 1.0.1 =
+* Simplified the Admin configuration screen.
+* Added ability to create dynamic widget titles through use of reserved word *#_AUTHORNAME_#*
+* Cleaned up some cluttered parts of code.
+* Updated readme.txt file to better explain installation process.
 = 1.0 =
 * Plugin Release (10/23/2009)
