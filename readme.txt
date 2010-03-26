@@ -1,18 +1,18 @@
 === Amazon Post Purchase ===
 Contributors: Richard Luck
-Donate link: http://pifmagazine.com/
-Tags: Amazon, Affiliate, ASIN, Amazon Associate, Monetize, Amazon.com
+Donate link: https://www.literary-arts.org/contribute/
+Tags: affiliate sales, Amazon, ASIN, Amazon Associate, monetize, Loudlever
 Requires at least: 2.5
 Tested up to: 2.8.4
-Stable tag: 1.0.1
+Stable tag: 1.1.1
 
-Quickly add Amazon Products related to a to post/page in a side-bar widget by simply setting a Custom Field that includes the Amazon ASIN (ISBN-10). 
+Display Amazon products related to a your post or page in a side-bar widget by simply setting the Amazon ASIN (ISBN-10) in Custom Field. 
 
 == Description ==
 Amazon Post Purchase Plugin is based upon the "Amazon Product In a Post Plugin" developed by [Don Fischer](http://fischercreativemedia.com/).
 This widget, however, is intended for use as a side-bar widget in themes that support dynamic side-bars.
 
-The Plugin is useful for quickly displaying an appropriate Amazon Product in the side-bar for an individual post.  The plugin only displays for posts where the Amazon product ASIN (also known as the ISBN-10) has been set in a post's custom field.
+The Plugin is useful for quickly displaying an Amazon product in the side-bar for an individual post.  The plugin only displays when the post or page has a custom field set, and that custom field's value is a valid Amazon ASIN (also known as the ISBN-10  for books).
 
 **Usage Examples:**
 
@@ -36,7 +36,9 @@ After you have installed the plugin and loaded the widget into your side-bar, yo
 
 Drag the "AmazonPostPurchase" widget to the appropriate side-bar container.  Where prompted, set the following fields:
 
-* "Title" - this will be the title displayed above the widget in the side-bar.  You can make this simple text, like "You Might Also Like", or the title can dynamically include the product's author, director, publisher or manufacturer by using the keyword *#_AUTHORNAME_#*, like this: "More by #_AUTHORNAME_#".
+* "Title" - this will be the title displayed above the widget in the side-bar.  
+- You can make this simple text, like "You Might Also Like", or 
+- You can make the title dynamically display the Author/Artist's name by using the keyword *#_AUTHORNAME_#*, like this: "Recently by #_AUTHORNAME_#".
 
 * "Amazon Affiliate ID" - this should be _your_ Affiliate ID.  If you do not set this field, all referral $$ from Amazon will go to us.
 
@@ -45,6 +47,48 @@ Drag the "AmazonPostPurchase" widget to the appropriate side-bar container.  Whe
 No additional adjustments are needed unless you want to configure your own CSS styles. 
 
 *WARNING: If you do not add your Amazon Affiliate ID, you will NOT get credit for purchases made using this Plugin.*
+
+== Styling ==
+
+You can customize the look and feel of the displayed widget, including turning on or off the display of certain data elements, through CSS.  The following CSS describes the various data elements displayed in the Widget:
+
+<pre>
+#amazon-post-purchase-container {
+  /* This is the container DIV for the displayed widget */
+}
+#amazon-post-purchase-image  {
+  /* This is the container DIV for the product IMAGE.  Defaults are: */
+  text-align:center;
+}
+#amazon-post-purchase-large-image-link {
+  /* This controls the display of the text "See larger image"  Defaults are: */
+  text-align:center;
+}
+#amazon-post-purchase-byline {
+  /* This DIV contains the product 'title' and 'author' information.  Two sub elements are contained within this DIV: */
+}
+#amazon-post-purchase-byline H2 {
+    /* This is where the product 'title' is contained */
+}
+#amazon-post-purchase-byline #amazon-post-purchase-author {
+    /* This is where the product 'author' is contained */
+}
+#amazon-post-purchase-publication {
+  /*  This Container displays the Format (ie: 'paperback'), Release Date, and Publisher information.  
+      If you turn 'off' display of this id, all 3 of those elements will not be displayed */
+}
+#amazon-post-purchase-price {
+  /*  This is where the 'List Price', 'New Price' and 'Used Price' are displayed   
+      If you turn 'off' display of this id, all 3 of those elements will not be displayed */
+}
+#amazon-post-purchase-button {
+  /*  This controls the display of the 'Buy Now at Amazon' button.
+      By default, this displays the image "images/buyamzon-button.png" in the plugin directory.
+      If you want to use a different 'buy' button, simply save a new image with the same name to this location. */
+}
+</pre>
+
+If you have any questions about configuration or styling, please feel free to contact us at: [wordpress@loudlever.com](mailto:wordpress@loudlever.com)
 
 == Usage ==
 
@@ -60,23 +104,42 @@ Once installed, adding a product to your post is a simple process:
 
 == Frequently Asked Questions ==
 
+= Do I Have to Pay Anything to Use this Plugin? =
+No.  This widget is FREE for you to use in your blog, online magazine, or other Wordpress-powered website.  Have fun!
+
+= Can I Make a Donation to Loudlever for Use of this Plugin? =
+If you wish to make a donation for use of this plugin, please consider donating instead to the [Literary Arts](https://www.literary-arts.org/contribute/) organization.  Literary Arts introduces high school students to the craft of writing.  They're our kind of group!
+
 = Can I Embed Amazon Products In My Post With This Plugin? =
-No.  If you want to do that, we recommend the Amazon Product In a Post Plugin.
+No.  If you want to do that, we recommend the "Amazon Product In a Post Plugin".
 
 = Can I Use This Widget More Than Once In My Sidebar? =
-Yes.  Wordpress will allow you to do that.  But each instance of the widget will display exactly the same information.  In short, we don't recommend you do this.
+Since the plugin is activated off of a Custom Field in the post, and there will only be one custom field matching the configuration of the Plugin, you will get identical results if you use the Widget more than once in your side-bar.
+
 
 == Screenshots ==
 
-1. Widget displayed in the Widget manager.
+1. Widget as it will appear in the Widget manager.
 2. Control screen for configuring the widget.
 3. Custom Field in the Post Edit screen.  This is where you set the ASIN for the product you want to display.
-
+4. How the widget will display on your website.
+ 
+== Upgrade Notice ==
+= 1.1.1 =
+* Better documentation, and cleaner/leaner code.  Upgrade recommended, but not required.
+ 
 == Changelog ==
+= 1.1.1 =
+* License is now MIT - so you can do what you want with this plugin.
+* Better documentation, including adding section on how to customize look of widget through CSS.
+* Cleaned out some of the kruft in the code.
+* This plugin is now owned and maintained by [Loudlever, Inc.](http://www.loudlever.com)
+
 = 1.0.1 =
 * Simplified the Admin configuration screen.
 * Added ability to create dynamic widget titles through use of reserved word *#_AUTHORNAME_#*
 * Cleaned up some cluttered parts of code.
 * Updated readme.txt file to better explain installation process.
+
 = 1.0 =
 * Plugin Release (10/23/2009)

@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Amazon Post Purchase
-Plugin URI: http://dimax.com
-Description: Side-Bar Widget to display an Amazon product for purchase that is related to the post.  Degrades gracefully if post lacks necessary meta data.
-Author: Richard Luck
-Version: 1.0
-Author URI: http://dimax.com
+Plugin URI: http://www.loudlever.com/callout/amazonpost
+Description: Side-Bar Widget to display an Amazon product related to the post.  Does not display on Home Page and will not display if prerequisite Custom Field in the Post/Page is not set.
+Author: Loudlever, Inc.
+Version: 1.1.1
+Author URI: http://www.loudlever.com
 */
 
 require_once("sha256.inc.php"); //required for php4
