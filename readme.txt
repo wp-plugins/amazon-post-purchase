@@ -130,7 +130,6 @@ Since the plugin is activated off of a Custom Field in the post, and there will 
  
 == Changelog ==
 = 1.1.1 =
-* License is now MIT - so you can do what you want with this plugin.
 * Better documentation, including adding section on how to customize look of widget through CSS.
 * Cleaned out some of the kruft in the code.
 * This plugin is now owned and maintained by [Loudlever, Inc.](http://www.loudlever.com)
