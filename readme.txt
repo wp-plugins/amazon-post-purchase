@@ -1,10 +1,10 @@
 === Amazon Post Purchase ===
-Contributors: Richard Luck
+Contributors: Loudlever, Inc.
 Donate link: https://www.literary-arts.org/contribute/
 Tags: affiliate sales, Amazon, ASIN, Amazon Associate, monetize, Loudlever
 Requires at least: 2.5
-Tested up to: 2.8.4
-Stable tag: 1.1.1
+Tested up to: 2.9.2
+Stable tag: 1.1.2
 
 Display Amazon products related to a your post or page in a side-bar widget by simply setting the Amazon ASIN (ISBN-10) in Custom Field. 
 
@@ -48,6 +48,18 @@ No additional adjustments are needed unless you want to configure your own CSS s
 
 *WARNING: If you do not add your Amazon Affiliate ID, you will NOT get credit for purchases made using this Plugin.*
 
+**Usage**
+
+Once installed, adding a product to your post is a simple process:
+
+*  Go into the full edit mode for the post (Post/Edit then select the post).
+*  Under the Custom Fields, click on the link 'Enter New' (after you've done this the first time, you will simply select the value from the drop-down list).
+*  Input the value you set in the widget "Custom Field Name" in the "Name" field.  (we recommend the word "ASIN").
+*  Input the ASIN for the product you want displayed in the "Value" field.
+*  Save or Publish the post.
+
+*Yes -- it's that easy!*
+
 == Styling ==
 
 You can customize the look and feel of the displayed widget, including turning on or off the display of certain data elements, through CSS.  The following CSS describes the various data elements displayed in the Widget:
@@ -90,18 +102,6 @@ You can customize the look and feel of the displayed widget, including turning o
 
 If you have any questions about configuration or styling, please feel free to contact us at: [wordpress@loudlever.com](mailto:wordpress@loudlever.com)
 
-== Usage ==
-
-Once installed, adding a product to your post is a simple process:
-
-*  Go into the full edit mode for the post (Post/Edit then select the post).
-*  Under the Custom Fields, click on the link 'Enter New' (after you've done this the first time, you will simply select the value from the drop-down list).
-*  Input the value you set in the widget "Custom Field Name" in the "Name" field.  (we recommend the word "ASIN").
-*  Input the ASIN for the product you want displayed in the "Value" field.
-*  Save or Publish the post.
-
-**Yes -- it's that easy!**
-
 == Frequently Asked Questions ==
 
 = Do I Have to Pay Anything to Use this Plugin? =
@@ -116,6 +116,8 @@ No.  If you want to do that, we recommend the "Amazon Product In a Post Plugin".
 = Can I Use This Widget More Than Once In My Sidebar? =
 Since the plugin is activated off of a Custom Field in the post, and there will only be one custom field matching the configuration of the Plugin, you will get identical results if you use the Widget more than once in your side-bar.
 
+= This Widget is Not Displaying on my Homepage? =
+This is by design.  Since the widget acts upon an ASIN being set at the POST level, a homepage with more than one POST can yield inconsistent results.  An update is planned for late 04/2010 that will allow users to define homepage display parameters.  Look for this feature then.
 
 == Screenshots ==
 
@@ -125,10 +127,17 @@ Since the plugin is activated off of a Custom Field in the post, and there will 
 4. How the widget will display on your website.
  
 == Upgrade Notice ==
+= 1.1.2 =
+* Fixed a bug that was preventing activation on some hosting servers.  If you've already activated this plugin, an upgrade is not necessary.  If an older version of the plugin will not activate, please upgrade to fix this problem.
+
 = 1.1.1 =
 * Better documentation, and cleaner/leaner code.  Upgrade recommended, but not required.
  
 == Changelog ==
+= 1.1.2 =
+* Fixed a bug that was preventing activation on some hosting servers.  
+* Updating documentation to clarify that widget will not display on Homepage by default.
+
 = 1.1.1 =
 * Better documentation, including adding section on how to customize look of widget through CSS.
 * Cleaned out some of the kruft in the code.

@@ -2,9 +2,9 @@
 /*
 Plugin Name: Amazon Post Purchase
 Plugin URI: http://www.loudlever.com/callout/amazonpost
-Description: Side-Bar Widget to display an Amazon product related to the post.  Does not display on Home Page and will not display if prerequisite Custom Field in the Post/Page is not set.
+Description: Side-Bar Widget to display an Amazon product related to the post being displayed.  This widget does not display on Home Page.  The widget will not display if the prerequisite Custom Field in the Post/Page is not set.
 Author: Loudlever, Inc.
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://www.loudlever.com
 */
 
@@ -220,10 +220,11 @@ EOF;
 
             $plugin_dir = get_bloginfo('url') . '/' . PLUGINDIR . '/amazon-post-purchase';
 // the whole kit-n-kaboodle
+    $med_image = $this->awsImageGrabber($result['MediumImage'],'amazon-image');
 			$returnval  =  <<< EOF
 <div id="amazon-post-purchase-container">  
 	<div id="amazon-post-purchase-image">
-	    <a href="{$result["URL"]}">{$this->awsImageGrabber($result['MediumImage'],'amazon-image')}</a>
+	    <a href="{$result["URL"]}">{$med_image}</a>
         {$largeimage}
     </div>
     <div id="amazon-post-purchase-byline">
