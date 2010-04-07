@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Amazon Post Purchase
-Plugin URI: http://dimax.com
-Description: Side-Bar Widget to display an Amazon product for purchase that is related to the post.  Degrades gracefully if post lacks necessary meta data.
-Author: Richard Luck
-Version: 1.0
-Author URI: http://dimax.com
+Plugin URI: http://www.loudlever.com/callout/amazonpost
+Description: Side-Bar Widget to display an Amazon product related to the post being displayed.  This widget does not display on Home Page.  The widget will not display if the prerequisite Custom Field in the Post/Page is not set.
+Author: Loudlever, Inc.
+Version: 1.1.2
+Author URI: http://www.loudlever.com
 */
 
 require_once("sha256.inc.php"); //required for php4
@@ -220,10 +220,11 @@ EOF;
 
             $plugin_dir = get_bloginfo('url') . '/' . PLUGINDIR . '/amazon-post-purchase';
 // the whole kit-n-kaboodle
+    $med_image = $this->awsImageGrabber($result['MediumImage'],'amazon-image');
 			$returnval  =  <<< EOF
 <div id="amazon-post-purchase-container">  
 	<div id="amazon-post-purchase-image">
-	    <a href="{$result["URL"]}">{$this->awsImageGrabber($result['MediumImage'],'amazon-image')}</a>
+	    <a href="{$result["URL"]}">{$med_image}</a>
         {$largeimage}
     </div>
     <div id="amazon-post-purchase-byline">
