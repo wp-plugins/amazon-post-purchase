@@ -1,9 +1,9 @@
 === Amazon Post Purchase ===
-Contributors: Loudlever, Inc.
+Contributors: loudlever
 Donate link: https://www.literary-arts.org/contribute/
 Tags: affiliate sales, Amazon, ASIN, Amazon Associate, monetize, Loudlever
 Requires at least: 2.5
-Tested up to: 2.9.2
+Tested up to: 4.1.0
 Stable tag: 1.1.2
 
 Display Amazon products related to a your post or page in a side-bar widget by simply setting the Amazon ASIN (ISBN-10) in Custom Field. 
@@ -127,6 +127,9 @@ This is by design.  Since the widget acts upon an ASIN being set at the POST lev
 4. How the widget will display on your website.
  
 == Upgrade Notice ==
+= 1.1.3 =
+* Fixed a bug regarding products that don't have sale data.
+
 = 1.1.2 =
 * Fixed a bug that was preventing activation on some hosting servers.  If you've already activated this plugin, an upgrade is not necessary.  If an older version of the plugin will not activate, please upgrade to fix this problem.
 
@@ -134,6 +137,9 @@ This is by design.  Since the widget acts upon an ASIN being set at the POST lev
 * Better documentation, and cleaner/leaner code.  Upgrade recommended, but not required.
  
 == Changelog ==
+= 1.1.3 =
+* Fixed a bug regarding products that don't have sale data.
+
 = 1.1.2 =
 * Fixed a bug that was preventing activation on some hosting servers.  
 * Updating documentation to clarify that widget will not display on Homepage by default.

@@ -3,8 +3,8 @@
 Plugin Name: Amazon Post Purchase
 Plugin URI: http://www.loudlever.com/callout/amazonpost
 Description: Side-Bar Widget to display an Amazon product related to the post being displayed.  This widget does not display on Home Page.  The widget will not display if the prerequisite Custom Field in the Post/Page is not set.
-Author: Loudlever, Inc.
-Version: 1.1.2
+Author: Loudlever
+Version: 1.1.3
 Author URI: http://www.loudlever.com
 */
 
@@ -16,7 +16,7 @@ class AmazonPostPurchase extends WP_Widget {
     // global vars
     var $public_key = 'AKIAJUTYNEJVYJQYBQBQ';
     var $private_key = 'Y4VMdiLPD5XEkrDTIM53ktFptmLuhEtik5JSqvqm';
-    var $affiliate = 'pifmag-amazon-post-purchase-20';  // you should set your own affiliate code, or we'll get credit for your purchases
+    var $affiliate = 'pifmag-amazon-post-purchase-20'; 
     var $asin_tag = 'ASIN'; // default custom field 'name'
     var $title_spec = '#_AUTHORNAME_#';
     var $title = 'More by %s';

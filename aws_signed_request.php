@@ -190,10 +190,6 @@ function FormatASINResult($Result) //main function for single product
                     'Title' => $Item['ItemAttributes']['Title']. ' ('.$Binding.')',
                     'URL' => $Item['DetailPageURL'],
                     'TotalOffers' => $Item['Offers']['TotalOffers'],
-                    'Amount' => $SalePrice['Amount'] / 100.0,
-                    'FormattedAmount' => '$'.($SalePrice['Amount'] / 100.0 ) . ' '. $SalePrice['CurrencyCode'],
-                    'Currency' => $SalePrice['CurrencyCode'],
-                    'SalePrice' => $SalePrice['FormattedPrice'],
                     'ReleaseDate' => $ReleaseDate,
                     'ListPrice' => $ListPrice,
                     'Binding' => $Binding,
@@ -217,6 +213,20 @@ function FormatASINResult($Result) //main function for single product
                     'Publisher' => $Item['ItemAttributes']['Publisher'],
                     'PublicationDate' => $Item['ItemAttributes']['PublicationDate']
                    );
+    if ($SalePrice) {               
+      if (isset($SalePrice['Amount'])) {
+        $RetVal['Amount'] = $SalePrice['Amount'] / 100.0;
+      }
+      if (isset($SalePrice['Amount']) && isset($SalePrice['CurrencyCode'])) {
+        $RetVal['FormattedAmount'] = '$'.($SalePrice['Amount'] / 100.0 ) . ' '. $SalePrice['CurrencyCode'];
+      }
+      if (isset($SalePrice['CurrencyCode'])) {
+        $RetVal['Currency'] = $SalePrice['CurrencyCode'];
+      }
+      if (isset($SalePrice['FormattedPrice'])) {
+        $RetVal['SalePrice'] = $SalePrice['FormattedPrice'];
+      }
+    }
     return $RetVal;  
   } 
   
