@@ -140,19 +140,21 @@ function GetChildren ($vals, &$i, $type)
 }
 
 
-function FormatASINResult($Result) //main function for single product
-  {
-    $Item 					= $Result['ItemLookupResponse']['Items']['Item'];
-    $ItemAttr 				= $Item['ItemAttributes'];
-  	$ImageSM 				= $Item['SmallImage']['URL'];
-  	$ImageMD 				= $Item['MediumImage']['URL'];
-  	$ImageLG 				= $Item['LargeImage']['URL'];
-  	$lowestNewPrice 		= $Item["OfferSummary"]["LowestNewPrice"]["FormattedPrice"];
-  	$lowestUsedPrice 		= $Item["OfferSummary"]["LowestUsedPrice"]["FormattedPrice"];
-    $TotalNew 				= $Item["OfferSummary"]["TotalNew"];
-    $TotalUsed 				= $Item["OfferSummary"]["TotalUsed"];
-    $TotalCollectible 		= $Item["OfferSummary"]["TotalCollectible"];
-    $TotalRefurbished 		= $Item["OfferSummary"]["TotalRefurbished"];
+function FormatASINResult($Result) {
+  global $amznpp;
+  $amznpp->log(sprintf("RESULTS: %s",print_r($Result,1)));
+  
+  $Item 					= $Result['ItemLookupResponse']['Items']['Item'];
+  $ItemAttr 				= $Item['ItemAttributes'];
+	$ImageSM 				= $Item['SmallImage']['URL'];
+	$ImageMD 				= $Item['MediumImage']['URL'];
+	$ImageLG 				= $Item['LargeImage']['URL'];
+	$lowestNewPrice 		= $Item["OfferSummary"]["LowestNewPrice"]["FormattedPrice"];
+	$lowestUsedPrice 		= $Item["OfferSummary"]["LowestUsedPrice"]["FormattedPrice"];
+  $TotalNew 				= $Item["OfferSummary"]["TotalNew"];
+  $TotalUsed 				= $Item["OfferSummary"]["TotalUsed"];
+  $TotalCollectible 		= $Item["OfferSummary"]["TotalCollectible"];
+  $TotalRefurbished 		= $Item["OfferSummary"]["TotalRefurbished"];
 
   	if($lowestNewPrice=='Too low to display'){$isPriceHidden=1;}else{$isPriceHidden=0;}
     if(!isset($Item['Offers']['Offer']['OfferListing']['Price'])){$SalePrice = $Item['Offers']['Offer']['OfferListing']['Price'];}else{$SalePrice = $Item['OfferSummary']['LowestNewPrice']['Amount'];}
@@ -167,7 +169,7 @@ function FormatASINResult($Result) //main function for single product
    
     $OfferListingId 		= $Item['Offers']['Offer']['OfferListing']['OfferListingId'];
 	if(isset($ItemAttr["ListPrice"]["FormattedPrice"])){
-		$ListPrice 		= $ItemAttr["ListPrice"]["FormattedPrice"] . ' ' . $ItemAttr["ListPrice"]["CurrencyCode"];
+		$ListPrice 		= $ItemAttr["ListPrice"]["FormattedPrice"]; # . ' ' . $ItemAttr["ListPrice"]["CurrencyCode"];
 	}else{
 		$ListPrice 		= '0';
 	}
@@ -232,83 +234,83 @@ function FormatASINResult($Result) //main function for single product
   
 //FormatSearchResult by Don Fischer
 
-function FormatSearchResult($Result)
-  {
-    $Item = $Result;
-	$Author = $Item["Author"];
-	$Binding = $Item["Binding"];
-	$EAN = $Item["EAN"];
-	$Edition = $Item["Edition"];
-	$Features = $Item["Feature"]; //array
-	$Languages = $Item["Languages"]["Language"]; //array
-	$ISBN = $Item["ISBN"];
-	$Label = $Item["Label"];
-	$ListPriceAmount = $Item["ListPrice"]["Amount"];
-	$ListPriceCurrencyCode = $Item["ListPrice"]["CurrencyCode"];
-	$ListPriceFormattedPrice = $Item["ListPrice"]["FormattedPrice"];
-	$Manufacturer = $Item["Manufacturer"];
-	$NumberOfItems = $Item["NumberOfItems"];
-	$NumberOfPages = $Item["NumberOfPages"];
-	$PackageDimensionsHeight = $Item["PackageDimensions"]["Height"]; //array
-	$PackageDimensionsLength = $Item["PackageDimensions"]["Length"]; //array
-	$PackageDimensionsWeight = $Item["PackageDimensions"]["Weight"]; //array
-	$PackageDimensionsWidth = $Item["PackageDimensions"]["Width"]; //array
-	$ProductGroup = $Item["ProductGroup"];
-	$ProductTypeName = $Item["ProductTypeName"];
-	$PublicationDate = $Item["PublicationDate"];
-	$Publisher = $Item["Publisher"];
-	$ReadingLevel = $Item["ReadingLevel"];
-	$ReleaseDate = $Item["ReleaseDate"];
-	$Studio = $Item["Studio"];
-	$Title = $Item["Title"];
-	//shortcut keys
-	$Price = $ListPriceFormattedPrice . ' ' .$ListPriceCurrencyCode;
-	$PackageDimensions = ($PackageDimensionsLength["value"] / 100) .'in x ' . ($PackageDimensionsWidth["value"] / 100). 'in x '. ($PackageDimensionsHeight["value"] / 100) .'in';
-	$PackageWeight = ($PackageDimensionsWeight["value"] / 100).'lbs.';
-	$Pages = $NumberOfPages;
-	
-    $RetVal = array(
-					'Author' => $Author,
-					'Binding' => $Binding,
-					'EAN' => $EAN,
-					'Edition' => $Edition,
-					'Features' => $Features, 
-					'Languages' => $Languages,
-					'ISBN' => $ISBN,
-					'Label' => $Label,
-					'ListPriceAmount' => $ListPriceAmount,
-					'ListPriceCurrencyCode' => $ListPriceCurrencyCode,
-					'ListPriceFormattedPice' => $ListPriceFormattedPrice,
-					'Manufacturer' => $Manufacturer,
-					'NumberOfItems' => $NumberOfItems,
-					'ItemNumberOfPages' => $ItemNumberOfPages,
-					'PackageDimensionsHeight' => $PackageDimensionsHeight, 
-					'PackageDimensionsLength' => $PackageDimensionsLength, 
-					'PackageDimensionsWeight' => $PackageDimensionsWeight, 
-					'PackageDimensionsWidth' => $PackageDimensionsWidth, 
-					'ProductGroup' => $ProductGroup,
-					'ProductTypeName' => $ProductTypeName,
-					'PublicationDate' => $PublicationDate,
-					'Publisher' => $Publisher,
-					'ReadingLevel' => $ReadingLevel,
-					'ReleaseDate' => $ReleaseDate,
-					'Studio' => $Studio,
-					'Title' => $Title,
-					'Price' => $Price,
-					'PackageDimensions' => $PackageDimensions,
-					'PackageWeight' => $PackageWeight,
-					'Pages' => $Pages
-                   );
-    
-    if(DEBUG)
-    {
-      echo('<br/><br/>');      
-      print_r($RetVal);
-      echo('<br/><br/>');
-    }
-                 
-    return $RetVal;  
-  } 
+// function FormatSearchResult($Result)
+//   {
+//     $Item = $Result;
+//  $Author = $Item["Author"];
+//  $Binding = $Item["Binding"];
+//  $EAN = $Item["EAN"];
+//  $Edition = $Item["Edition"];
+//  $Features = $Item["Feature"]; //array
+//  $Languages = $Item["Languages"]["Language"]; //array
+//  $ISBN = $Item["ISBN"];
+//  $Label = $Item["Label"];
+//  $ListPriceAmount = $Item["ListPrice"]["Amount"];
+//  $ListPriceCurrencyCode = $Item["ListPrice"]["CurrencyCode"];
+//  $ListPriceFormattedPrice = $Item["ListPrice"]["FormattedPrice"];
+//  $Manufacturer = $Item["Manufacturer"];
+//  $NumberOfItems = $Item["NumberOfItems"];
+//  $NumberOfPages = $Item["NumberOfPages"];
+//  $PackageDimensionsHeight = $Item["PackageDimensions"]["Height"]; //array
+//  $PackageDimensionsLength = $Item["PackageDimensions"]["Length"]; //array
+//  $PackageDimensionsWeight = $Item["PackageDimensions"]["Weight"]; //array
+//  $PackageDimensionsWidth = $Item["PackageDimensions"]["Width"]; //array
+//  $ProductGroup = $Item["ProductGroup"];
+//  $ProductTypeName = $Item["ProductTypeName"];
+//  $PublicationDate = $Item["PublicationDate"];
+//  $Publisher = $Item["Publisher"];
+//  $ReadingLevel = $Item["ReadingLevel"];
+//  $ReleaseDate = $Item["ReleaseDate"];
+//  $Studio = $Item["Studio"];
+//  $Title = $Item["Title"];
+//  //shortcut keys
+//  $Price = $ListPriceFormattedPrice . ' ' .$ListPriceCurrencyCode;
+//  $PackageDimensions = ($PackageDimensionsLength["value"] / 100) .'in x ' . ($PackageDimensionsWidth["value"] / 100). 'in x '. ($PackageDimensionsHeight["value"] / 100) .'in';
+//  $PackageWeight = ($PackageDimensionsWeight["value"] / 100).'lbs.';
+//  $Pages = $NumberOfPages;
+//  
+//     $RetVal = array(
+//          'Author' => $Author,
+//          'Binding' => $Binding,
+//          'EAN' => $EAN,
+//          'Edition' => $Edition,
+//          'Features' => $Features, 
+//          'Languages' => $Languages,
+//          'ISBN' => $ISBN,
+//          'Label' => $Label,
+//          'ListPriceAmount' => $ListPriceAmount,
+//          'ListPriceCurrencyCode' => $ListPriceCurrencyCode,
+//          'ListPriceFormattedPice' => $ListPriceFormattedPrice,
+//          'Manufacturer' => $Manufacturer,
+//          'NumberOfItems' => $NumberOfItems,
+//          'ItemNumberOfPages' => $ItemNumberOfPages,
+//          'PackageDimensionsHeight' => $PackageDimensionsHeight, 
+//          'PackageDimensionsLength' => $PackageDimensionsLength, 
+//          'PackageDimensionsWeight' => $PackageDimensionsWeight, 
+//          'PackageDimensionsWidth' => $PackageDimensionsWidth, 
+//          'ProductGroup' => $ProductGroup,
+//          'ProductTypeName' => $ProductTypeName,
+//          'PublicationDate' => $PublicationDate,
+//          'Publisher' => $Publisher,
+//          'ReadingLevel' => $ReadingLevel,
+//          'ReleaseDate' => $ReleaseDate,
+//          'Studio' => $Studio,
+//          'Title' => $Title,
+//          'Price' => $Price,
+//          'PackageDimensions' => $PackageDimensions,
+//          'PackageWeight' => $PackageWeight,
+//          'Pages' => $Pages
+//                    );
+//     
+//     if(DEBUG)
+//     {
+//       echo('<br/><br/>');      
+//       print_r($RetVal);
+//       echo('<br/><br/>');
+//     }
+//                  
+//     return $RetVal;  
+//   } 
 
 //aws_signed_request code from http://mierendo.com/software/aws_signed_query/
 
