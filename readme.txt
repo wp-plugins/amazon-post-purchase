@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: affiliate sales, Amazon, ASIN, Amazon Associate, monetize, Loudlever
 Requires at least: 2.5
 Tested up to: 4.1.0
-Stable tag: 2.0.0
+Stable tag: 1.1.3
 
 Display Amazon products related to a your post or page in a side-bar widget by simply setting the Amazon ASIN (ISBN-10) in Custom Field. 
 
