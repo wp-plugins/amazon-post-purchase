@@ -268,4 +268,3 @@ EOF;
 } // end class
 
 ?>
-
