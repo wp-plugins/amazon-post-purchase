@@ -43,7 +43,7 @@ if ( !function_exists( 'add_action' ) ) {
   OPTION SETTINGS
 ---------------------------------------------------------------------------------
 */  
-define('AMZNPP_DEBUG',true);
+define('AMZNPP_DEBUG',false);
 define('AMZNPP_PLUGIN_VERSION', '2.0.0');
 define('AMZNPP_PLUGIN_OPTTIONS', '_amznapp_plugin_options');
 define('AMZNPP_ADMIN_PAGE','amazon-post-purchase');
